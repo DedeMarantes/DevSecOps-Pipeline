@@ -24,7 +24,7 @@ func LoadConfig() Config {
 		Database: os.Getenv("DB_DATABASE"),
 	}
 	if cfg.Host == "" {
-		log.Fatal("Missing Environment variables")
+		log.Println("Missing Envinroment Variables")
 	}
 	return cfg
 }

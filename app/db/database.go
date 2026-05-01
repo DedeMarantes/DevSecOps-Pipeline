@@ -19,11 +19,11 @@ func ConnectDB(cfg Config) {
 	)
 	DB, err = gorm.Open(postgres.Open(connStr), &gorm.Config{})
 	if err != nil {
-		log.Fatal("Failed to connect to Postgres:", err)
+		log.Println("Failed to connect to Postgres:", err)
 	}
 	err = DB.AutoMigrate(&model.Anime{})
 	if err != nil {
-		log.Fatal("Failed to migrate database:", err)
+		log.Println("Failed to migrate database:", err)
 	}
 
 }
