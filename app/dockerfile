@@ -16,6 +16,7 @@ FROM gcr.io/distroless/static-debian12
 
 WORKDIR /app
 
+#Só roda o binário compilado e mais nada, sem dependências de sistema.
 COPY --from=builder /app/server .
 EXPOSE 8080
 CMD ["./server"]
