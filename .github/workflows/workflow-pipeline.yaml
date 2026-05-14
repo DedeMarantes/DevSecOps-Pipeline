@@ -5,6 +5,8 @@ on:
         branches: 
             - main
             - feature/*
+        paths-ignore:
+          - .github/*
     pull_request: 
         branches: 
             - main
@@ -89,11 +91,16 @@ jobs:
             uses: aquasecurity/trivy-action@v0.36.0
             with:
               image-ref: ${{ env.DOCKER_USERNAME }}/go-api:${{ github.sha }}
-              format: table
-              exit-code: '1'
-              ignore-unfixed: true
+              format: 'sarif'
+              output: 'trivy-report.sarif'
               vuln-type: 'os,library'
               severity: 'CRITICAL,HIGH'
+          - name: Upload do Report Trivy
+            uses: github/codeql-action/upload-sarif@v4
+            with:
+              sarif_file: trivy-report.sarif
+
+              
           # Testando endpoint /health para checar se aplicação funciona antes de push
           - name: Testando /health da imagem
             env:
